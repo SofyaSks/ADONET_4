@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="music2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\.;Initial Catalog=music2;Integrated Security=True" SettingsObjectName="LinkToSQL.Properties.Settings" SettingsPropertyName="music2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.songs" Member="songs">
+    <Type Name="song">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="weight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="song_song_artist" Member="song_artists" ThisKey="Id" OtherKey="SongId" Type="song_artist" />
+    </Type>
+  </Table>
+  <Table Name="dbo.song_artists" Member="song_artists">
+    <Type Name="song_artist">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SongId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ArtistId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="song_song_artist" Member="song" ThisKey="SongId" OtherKey="Id" Type="song" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="artist_song_artist" Member="artist" ThisKey="ArtistId" OtherKey="Id" Type="artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.artists" Member="artists">
+    <Type Name="artist">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="artist_song_artist" Member="song_artists" ThisKey="Id" OtherKey="ArtistId" Type="song_artist" />
+    </Type>
+  </Table>
+</Database>
